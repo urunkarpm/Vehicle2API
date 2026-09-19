@@ -7,10 +7,12 @@ import {
     getTrims,
     searchVehicles
 } from './models.js';
+import { decodeVin } from './nhtsaProxy.js';
 
 // ponytail: SQLite single-file DB -> Upgrade to PostgreSQL/MySQL if concurrent writes > 10,000 req/sec.
 
-export function createApp(db = initDb()) {
+export function createApp(db = initDb(), options = {}) {
+    const { vinDecoder = decodeVin } = options;
     const app = express();
 
     app.use(express.json());
@@ -115,6 +117,17 @@ export function createApp(db = initDb()) {
             });
         } catch (err) {
             res.status(500).json({ error: err.message });
+        }
+    });
+
+    // Dynamic NHTSA VIN decoder proxy
+    app.get('/api/v1/nhtsa/decode/:vin', async (req, res) => {
+        try {
+            const { vin } = req.params;
+            const vehicle = await vinDecoder(vin);
+            res.status(200).json(vehicle);
+        } catch (err) {
+            res.status(err.status || 500).json({ error: err.message });
         }
     });
 
