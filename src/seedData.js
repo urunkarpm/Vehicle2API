@@ -20,8 +20,15 @@ export const manufacturers = [
     { id: 'volkswagen', name: 'Volkswagen', country_origin: 'DE' },
     { id: 'maruti-suzuki', name: 'Maruti Suzuki', country_origin: 'IN' },
     { id: 'mahindra', name: 'Mahindra', country_origin: 'IN' },
-    { id: 'hyundai', name: 'Hyundai', country_origin: 'KR' }
+    { id: 'hyundai', name: 'Hyundai', country_origin: 'KR' },
+    { id: 'chevrolet', name: 'Chevrolet', country_origin: 'US' },
+    { id: 'mercedes-benz', name: 'Mercedes-Benz', country_origin: 'DE' },
+    { id: 'audi', name: 'Audi', country_origin: 'DE' },
+    { id: 'honda', name: 'Honda', country_origin: 'JP' },
+    { id: 'nissan', name: 'Nissan', country_origin: 'JP' },
+    { id: 'geely', name: 'Geely', country_origin: 'CN' }
 ];
+
 
 export const models = [
     { id: 'toyota-corolla', manufacturer_id: 'toyota', name: 'Corolla', body_type: 'Sedan' },
@@ -53,8 +60,23 @@ export const models = [
     { id: 'mahindra-thar', manufacturer_id: 'mahindra', name: 'Thar', body_type: 'SUV' },
     { id: 'hyundai-creta', manufacturer_id: 'hyundai', name: 'Creta', body_type: 'SUV' },
     { id: 'hyundai-ioniq-5', manufacturer_id: 'hyundai', name: 'IONIQ 5', body_type: 'SUV' },
-    { id: 'hyundai-tucson', manufacturer_id: 'hyundai', name: 'Tucson', body_type: 'SUV' }
+    { id: 'hyundai-tucson', manufacturer_id: 'hyundai', name: 'Tucson', body_type: 'SUV' },
+    { id: 'toyota-camry', manufacturer_id: 'toyota', name: 'Camry', body_type: 'Sedan' },
+    { id: 'tesla-model-s', manufacturer_id: 'tesla', name: 'Model S', body_type: 'Sedan' },
+    { id: 'tesla-model-x', manufacturer_id: 'tesla', name: 'Model X', body_type: 'SUV' },
+    { id: 'chevrolet-corvette', manufacturer_id: 'chevrolet', name: 'Corvette Stingray', body_type: 'Coupe' },
+    { id: 'chevrolet-silverado', manufacturer_id: 'chevrolet', name: 'Silverado 1500', body_type: 'Pickup' },
+    { id: 'mercedes-benz-c-class', manufacturer_id: 'mercedes-benz', name: 'C-Class', body_type: 'Sedan' },
+    { id: 'mercedes-benz-eqe', manufacturer_id: 'mercedes-benz', name: 'EQE SUV', body_type: 'EV' },
+    { id: 'audi-a4', manufacturer_id: 'audi', name: 'A4 Sedan', body_type: 'Sedan' },
+    { id: 'audi-e-tron-gt', manufacturer_id: 'audi', name: 'e-tron GT', body_type: 'EV' },
+    { id: 'honda-civic', manufacturer_id: 'honda', name: 'Civic', body_type: 'Sedan' },
+    { id: 'honda-cr-v', manufacturer_id: 'honda', name: 'CR-V', body_type: 'SUV' },
+    { id: 'nissan-gt-r', manufacturer_id: 'nissan', name: 'GT-R', body_type: 'Coupe' },
+    { id: 'nissan-ariya', manufacturer_id: 'nissan', name: 'Ariya', body_type: 'EV' },
+    { id: 'geely-coolray', manufacturer_id: 'geely', name: 'Coolray', body_type: 'SUV' }
 ];
+
 
 export const trims = [
     // Toyota Corolla
@@ -1515,8 +1537,221 @@ export const trims = [
         power_hp: 265,
         price_local: '€47,590',
         on_sale: 1
+    },
+
+    // Toyota Camry
+    {
+        id: 'toyota-camry-us-le',
+        model_id: 'toyota-camry',
+        country_code: 'US',
+        trim_name: 'LE Hybrid',
+        year: 2025,
+        engine: '2.5L 4-Cylinder Hybrid',
+        transmission: 'eCVT',
+        drivetrain: 'FWD',
+        fuel_type: 'Hybrid',
+        power_hp: 225,
+        price_local: '$28,400',
+        on_sale: 1
+    },
+
+    // Tesla Model S & X
+    {
+        id: 'tesla-models-us-plaid',
+        model_id: 'tesla-model-s',
+        country_code: 'US',
+        trim_name: 'Plaid Tri-Motor',
+        year: 2024,
+        engine: 'Tri-Motor Electric',
+        transmission: 'Single Speed Fixed Gear',
+        drivetrain: 'AWD',
+        fuel_type: 'Electric',
+        power_hp: 1020,
+        price_local: '$89,990',
+        on_sale: 1
+    },
+    {
+        id: 'tesla-modelx-us-lr',
+        model_id: 'tesla-model-x',
+        country_code: 'US',
+        trim_name: 'Long Range Dual Motor',
+        year: 2024,
+        engine: 'Dual Motor Electric',
+        transmission: 'Single Speed Fixed Gear',
+        drivetrain: 'AWD',
+        fuel_type: 'Electric',
+        power_hp: 670,
+        price_local: '$79,990',
+        on_sale: 1
+    },
+
+    // Chevrolet
+    {
+        id: 'chevrolet-corvette-us-3lt',
+        model_id: 'chevrolet-corvette',
+        country_code: 'US',
+        trim_name: '3LT Coupe',
+        year: 2024,
+        engine: '6.2L LT2 V8',
+        transmission: '8-Speed Dual-Clutch',
+        drivetrain: 'RWD',
+        fuel_type: 'Gasoline',
+        power_hp: 495,
+        price_local: '$79,850',
+        on_sale: 1
+    },
+    {
+        id: 'chevrolet-silverado-us-rst',
+        model_id: 'chevrolet-silverado',
+        country_code: 'US',
+        trim_name: 'RST 5.3L V8 4WD',
+        year: 2024,
+        engine: '5.3L EcoTec3 V8',
+        transmission: '10-Speed Automatic',
+        drivetrain: '4WD',
+        fuel_type: 'Gasoline',
+        power_hp: 355,
+        price_local: '$54,300',
+        on_sale: 1
+    },
+
+    // Mercedes-Benz
+    {
+        id: 'mercedes-cclass-de-c200',
+        model_id: 'mercedes-benz-c-class',
+        country_code: 'DE',
+        trim_name: 'C 200 Sedan Mild Hybrid',
+        year: 2024,
+        engine: '1.5L Turbo I4 Mild Hybrid',
+        transmission: '9G-TRONIC Automatic',
+        drivetrain: 'RWD',
+        fuel_type: 'Mild Hybrid',
+        power_hp: 204,
+        price_local: '€49,474',
+        on_sale: 1
+    },
+    {
+        id: 'mercedes-eqe-de-350',
+        model_id: 'mercedes-benz-eqe',
+        country_code: 'DE',
+        trim_name: 'EQE 350+ SUV',
+        year: 2024,
+        engine: 'Single Motor Electric',
+        transmission: 'Single Speed Automatic',
+        drivetrain: 'RWD',
+        fuel_type: 'Electric',
+        power_hp: 292,
+        price_local: '€83,478',
+        on_sale: 1
+    },
+
+    // Audi
+    {
+        id: 'audi-a4-de-40tfsi',
+        model_id: 'audi-a4',
+        country_code: 'DE',
+        trim_name: '40 TFSI S tronic',
+        year: 2024,
+        engine: '2.0L TFSI Turbo Mild Hybrid',
+        transmission: '7-Speed S tronic',
+        drivetrain: 'FWD',
+        fuel_type: 'Mild Hybrid',
+        power_hp: 204,
+        price_local: '€42,500',
+        on_sale: 1
+    },
+    {
+        id: 'audi-etrongt-us-rs',
+        model_id: 'audi-e-tron-gt',
+        country_code: 'US',
+        trim_name: 'RS e-tron GT',
+        year: 2024,
+        engine: 'Dual Motor Electric',
+        transmission: '2-Speed Automatic Rear',
+        drivetrain: 'AWD',
+        fuel_type: 'Electric',
+        power_hp: 637,
+        price_local: '$147,100',
+        on_sale: 1
+    },
+
+    // Honda
+    {
+        id: 'honda-civic-us-touring',
+        model_id: 'honda-civic',
+        country_code: 'US',
+        trim_name: 'Touring Sedan',
+        year: 2024,
+        engine: '1.5L Turbocharged 4-Cylinder',
+        transmission: 'LL-CVT',
+        drivetrain: 'FWD',
+        fuel_type: 'Gasoline',
+        power_hp: 180,
+        price_local: '$30,550',
+        on_sale: 1
+    },
+    {
+        id: 'honda-crv-jp-ehev',
+        model_id: 'honda-cr-v',
+        country_code: 'JP',
+        trim_name: 'e:HEV EX Black Edition',
+        year: 2024,
+        engine: '2.0L Direct Injection Hybrid',
+        transmission: 'eCVT',
+        drivetrain: 'AWD',
+        fuel_type: 'Hybrid',
+        power_hp: 204,
+        price_local: '¥4,650,000',
+        on_sale: 1
+    },
+
+    // Nissan
+    {
+        id: 'nissan-gtr-jp-nismo',
+        model_id: 'nissan-gt-r',
+        country_code: 'JP',
+        trim_name: 'NISMO Special Edition',
+        year: 2024,
+        engine: '3.8L Twin-Turbo V6 VR38DETT',
+        transmission: '6-Speed Dual Clutch',
+        drivetrain: 'AWD',
+        fuel_type: 'Gasoline',
+        power_hp: 600,
+        price_local: '¥30,613,000',
+        on_sale: 1
+    },
+    {
+        id: 'nissan-ariya-us-empower',
+        model_id: 'nissan-ariya',
+        country_code: 'US',
+        trim_name: 'EMPOWER+ FWD',
+        year: 2024,
+        engine: 'Single AC Synchronous Motor',
+        transmission: 'Single Speed Automatic',
+        drivetrain: 'FWD',
+        fuel_type: 'Electric',
+        power_hp: 238,
+        price_local: '$47,690',
+        on_sale: 1
+    },
+
+    // Geely
+    {
+        id: 'geely-coolray-cn-flagship',
+        model_id: 'geely-coolray',
+        country_code: 'CN',
+        trim_name: 'Binyue Cool Champion',
+        year: 2024,
+        engine: '1.5L TD 4-Cylinder Turbo',
+        transmission: '7-Speed Wet DCT',
+        drivetrain: 'FWD',
+        fuel_type: 'Gasoline',
+        power_hp: 181,
+        price_local: '¥95,800',
+        on_sale: 1
     }
 ];
+
 
 export default {
     countries,
