@@ -16,6 +16,8 @@ export function createApp(db = initDb(), options = {}) {
     const app = express();
 
     app.use(express.json());
+    app.use(express.static('public'));
+
 
     // CORS headers middleware
     app.use((req, res, next) => {

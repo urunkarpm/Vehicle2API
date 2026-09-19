@@ -102,9 +102,19 @@ test('GET /api/v1/search returns matching results', async () => {
     assert.deepStrictEqual(bodyEmpty.results, { manufacturers: [], models: [], trims: [] });
 });
 
+test('GET / returns HTML static homepage', async () => {
+    const res = await fetch(`${baseUrl}/`);
+    assert.strictEqual(res.status, 200);
+    const contentType = res.headers.get('content-type');
+    assert.ok(contentType.includes('text/html'));
+    const html = await res.text();
+    assert.ok(html.includes('Vehicle2API'));
+});
+
 test('GET /api/v1/unknown returns 404 Not Found', async () => {
     const res = await fetch(`${baseUrl}/api/v1/unknown`);
     assert.strictEqual(res.status, 404);
     const body = await res.json();
     assert.strictEqual(body.error, 'Not Found');
 });
+
