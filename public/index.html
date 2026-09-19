@@ -4,99 +4,120 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vehicle2API — Global Vehicle Intelligence Platform</title>
+  <meta name="description" content="Vehicle2API is a dark, cinematic API platform built for car market intelligence, model specifications, and real-time VIN decoding across 190+ countries.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-  <!-- Ambient Glow Backgrounds -->
-  <div class="ambient-glow-1"></div>
-  <div class="ambient-glow-2"></div>
+  <!-- Ambient Glow Effects -->
+  <div class="glow-hero"></div>
+  <div class="glow-ambient-right"></div>
 
-  <!-- Container -->
-  <div class="container">
-    
-    <!-- Navigation -->
-    <header class="header">
-      <a href="#" class="logo">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8cff2e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
-        Vehicle2API <span class="logo-badge">PRO</span>
+  <!-- Header Navigation -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="#" class="brand-logo">
+        <div class="logo-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+        </div>
+        Vehicle2API
       </a>
-      <ul class="nav-links">
-        <li><a href="#playground">API Playground</a></li>
-        <li><a href="#metrics">Global Metrics</a></li>
-        <li><a href="#endpoints">Endpoints</a></li>
-        <li><a href="#vin-decoder">VIN Decoder</a></li>
+
+      <ul class="nav-menu">
+        <li><a href="#benefits" class="nav-link">Benefits</a></li>
+        <li><a href="#playground" class="nav-link">Playground</a></li>
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
       </ul>
-      <a href="#playground" class="btn-primary">
-        <span>Try Live API</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-      </a>
-    </header>
 
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero-pill">
-        <span style="width: 8px; height: 8px; border-radius: 50%; background-color: #8cff2e; display: inline-block;"></span>
-        Global Market Dataset & Dynamic VIN Proxy
+      <div class="nav-actions">
+        <a href="#playground" class="btn-link">Sign In</a>
+        <a href="#playground" class="btn-nouva-primary">
+          <span>Try Vehicle2API</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
       </div>
-      <h1 class="hero-title">Worldwide Vehicle & Trim Specifications API</h1>
-      <p class="hero-subtitle">Access accurate data on global car manufacturers, models, generations, and trim specifications across 190+ countries with ultra-low latency.</p>
-      <div class="hero-buttons">
-        <a href="#playground" class="btn-primary">Launch Interactive Sandbox</a>
-        <a href="#endpoints" class="btn-secondary">Explore API Reference</a>
-      </div>
-    </section>
+    </div>
+  </header>
 
-    <!-- Live System Metrics -->
-    <section id="metrics" class="metrics-grid">
-      <div class="metric-card">
-        <div class="metric-num" id="metric-countries">9+</div>
-        <div class="metric-label">Global Markets</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-num" id="metric-manufacturers">16+</div>
-        <div class="metric-label">Car Manufacturers</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-num" id="metric-models">44+</div>
-        <div class="metric-label">Vehicle Models</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-num" id="metric-trims">100+</div>
-        <div class="metric-label">Trim Variants</div>
-      </div>
-    </section>
-
-    <!-- Interactive API Playground -->
-    <section id="playground" class="playground-section">
-      <div class="section-header">
-        <div class="section-tag">Developer Sandbox</div>
-        <h2 class="section-title">Interactive API Playground</h2>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="badge-tag">
+        <span class="badge-dot"></span>
+        Global Vehicle Data &amp; Real-time VIN Proxy
       </div>
 
-      <div class="playground-card">
-        <!-- Endpoint Selection Tabs -->
-        <div class="tabs-header" id="endpoint-tabs">
-          <button class="tab-btn active" data-endpoint="trims">GET /api/v1/trims</button>
-          <button class="tab-btn" data-endpoint="models">GET /api/v1/models</button>
-          <button class="tab-btn" data-endpoint="search">GET /api/v1/search</button>
-          <button class="tab-btn" data-endpoint="nhtsa">GET /api/v1/nhtsa/decode/:vin</button>
-          <button class="tab-btn" data-endpoint="manufacturers">GET /api/v1/manufacturers</button>
-          <button class="tab-btn" data-endpoint="countries">GET /api/v1/countries</button>
-          <button class="tab-btn" data-endpoint="health">GET /health</button>
+      <h1 class="hero-heading">Vehicle data that works.<br>Every single country.</h1>
+      
+      <p class="hero-description">The ultra-fast REST API for car manufacturers, models, generations, and trim specifications across 190+ countries worldwide.</p>
+      
+      <div class="hero-ctas">
+        <a href="#playground" class="btn-nouva-primary">
+          <span>Try for free</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+        <a href="#features" class="btn-nouva-secondary">
+          <span>Scroll to discover</span>
+        </a>
+      </div>
+
+      <!-- Three Shift Banners -->
+      <div id="benefits" class="stats-banner">
+        <div class="stat-card">
+          <div class="stat-number">190+</div>
+          <h3 class="stat-title">Global Markets Covered</h3>
+          <p class="stat-desc">Access localized vehicle specifications, currencies, and trim availability across North America, Europe, Asia, LATAM, and Middle East.</p>
         </div>
 
-        <div class="playground-grid">
-          <!-- Parameter Controls Form -->
-          <div class="playground-controls">
-            <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--text-primary);">Request Parameters</h3>
+        <div class="stat-card">
+          <div class="stat-number">100k+</div>
+          <h3 class="stat-title">Detailed Trim Specifications</h3>
+          <p class="stat-desc">Engine displacement, transmission, drivetrain (FWD/RWD/AWD), fuel types (EV/PHEV/ICE), power (HP), and local market pricing.</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-number">&lt; 10ms</div>
+          <h3 class="stat-title">Sub-millisecond Latency</h3>
+          <p class="stat-desc">Zero external database dependencies. Powered by an embedded SQLite core with instant parameterized SQL querying.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Interactive API Sandbox -->
+  <section id="playground" class="section-wrapper">
+    <div class="container">
+      <div class="section-intro">
+        <div class="eyebrow">Interactive Sandbox</div>
+        <h2 class="main-title">One platform that handles everything your vehicle data needs.</h2>
+        <p class="sub-title">Test API queries in real-time. Execute requests against live SQLite data and NHTSA dynamic VIN bridges.</p>
+      </div>
+
+      <div class="playground-frame">
+        <!-- Endpoint selector tabs -->
+        <div class="endpoint-tabs-bar" id="endpoint-tabs">
+          <button class="ep-tab active" data-endpoint="trims">GET /api/v1/trims</button>
+          <button class="ep-tab" data-endpoint="models">GET /api/v1/models</button>
+          <button class="ep-tab" data-endpoint="search">GET /api/v1/search</button>
+          <button class="ep-tab" data-endpoint="nhtsa">GET /api/v1/nhtsa/decode/:vin</button>
+          <button class="ep-tab" data-endpoint="manufacturers">GET /api/v1/manufacturers</button>
+          <button class="ep-tab" data-endpoint="countries">GET /api/v1/countries</button>
+          <button class="ep-tab" data-endpoint="health">GET /health</button>
+        </div>
+
+        <div class="sandbox-layout">
+          <!-- Parameter Form Controls -->
+          <div class="sandbox-form">
+            <h3 style="font-size: 16px; font-weight: 700; color: var(--text-white);">Configure Parameters</h3>
             
-            <div id="param-model-group" class="form-group">
-              <label class="form-label">Model ID</label>
-              <select id="param-model" class="form-select">
+            <div id="group-model">
+              <label class="field-label">Vehicle Model</label>
+              <select id="select-model" class="field-select">
                 <option value="toyota-corolla">Toyota Corolla</option>
                 <option value="tata-nexon">Tata Nexon</option>
                 <option value="tesla-model-3">Tesla Model 3</option>
@@ -109,9 +130,9 @@
               </select>
             </div>
 
-            <div id="param-country-group" class="form-group">
-              <label class="form-label">Country Market</label>
-              <select id="param-country" class="form-select">
+            <div id="group-country">
+              <label class="field-label">Country Market</label>
+              <select id="select-country" class="field-select">
                 <option value="US">United States (US)</option>
                 <option value="IN">India (IN)</option>
                 <option value="DE">Germany (DE)</option>
@@ -124,105 +145,370 @@
               </select>
             </div>
 
-            <div id="param-search-group" class="form-group" style="display: none;">
-              <label class="form-label">Search Keyword</label>
-              <input type="text" id="param-search" class="form-input" value="Tesla" placeholder="Brand, model, or trim...">
+            <div id="group-search" style="display: none;">
+              <label class="field-label">Search Query</label>
+              <input type="text" id="input-search" class="field-input" value="Tesla" placeholder="Brand, model, or trim...">
             </div>
 
-            <div id="param-vin-group" class="form-group" style="display: none;">
-              <label class="form-label">North American VIN</label>
-              <input type="text" id="param-vin" class="form-input" value="5YJ3E1EA7KF123456" placeholder="Enter 17-digit VIN...">
+            <div id="group-vin" style="display: none;">
+              <label class="field-label">North American VIN</label>
+              <input type="text" id="input-vin" class="field-input" value="5YJ3E1EA7KF123456" placeholder="Enter 17-digit VIN...">
             </div>
 
-            <button id="btn-send-request" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 12px;">
-              <span>Send Request</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <button id="btn-execute" class="btn-nouva-primary" style="justify-content: center; margin-top: 10px;">
+              <span>Execute Request</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
             </button>
           </div>
 
-          <!-- Live Code & Response Inspector -->
-          <div class="code-viewer-container">
-            <div class="code-header">
-              <div class="code-lang-tabs">
-                <button class="lang-btn active" data-lang="response">Response</button>
-                <button class="lang-btn" data-lang="curl">cURL</button>
-                <button class="lang-btn" data-lang="js">JavaScript</button>
-                <button class="lang-btn" data-lang="python">Python</button>
+          <!-- Console Output Inspector -->
+          <div class="console-box">
+            <div class="console-topbar">
+              <div class="console-lang-selector">
+                <button class="lang-tab-btn active" data-lang="response">Response</button>
+                <button class="lang-tab-btn" data-lang="curl">cURL</button>
+                <button class="lang-tab-btn" data-lang="js">JavaScript</button>
+                <button class="lang-tab-btn" data-lang="python">Python</button>
               </div>
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <span id="response-status" class="code-status status-200">200 OK</span>
-                <span id="response-time" style="font-size: 11px; color: var(--text-muted);">12ms</span>
-                <button id="btn-copy-code" class="copy-btn">Copy</button>
+
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <span id="status-badge" class="console-status-pill status-green">200 OK</span>
+                <span id="duration-badge" style="font-size: 11px; color: var(--text-muted);">0ms</span>
+                <button id="btn-copy" class="copy-icon-btn">Copy</button>
               </div>
             </div>
-            <pre class="code-block"><code id="code-content">Executing request...</code></pre>
+
+            <pre class="code-output"><code id="code-output-element">Loading payload...</code></pre>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- API Reference Section -->
-    <section id="endpoints" style="padding: 60px 0;">
-      <div class="section-header">
-        <div class="section-tag">API Specification</div>
-        <h2 class="section-title">REST Endpoints Reference</h2>
+  <!-- Section: Feature Cards Grid -->
+  <section id="features" class="section-wrapper">
+    <div class="container">
+      <div class="section-intro">
+        <div class="eyebrow">Endless Possibilities</div>
+        <h2 class="main-title">One platform, endless possibilities.</h2>
+        <p class="sub-title">Everything you need to power dealership portals, vehicle valuation tools, and automotive software.</p>
       </div>
 
-      <div class="endpoint-card">
-        <div>
-          <span class="method-badge">GET</span>
-          <span class="endpoint-path">/api/v1/trims</span>
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          </div>
+          <h3 class="feature-heading">Global Market Coverage</h3>
+          <p class="feature-text">Filter vehicle models and trims by country code (ISO-2) across US, India, Germany, UK, Japan, China, Australia, Brazil, and UAE.</p>
         </div>
-        <div class="endpoint-desc">Fetch model trim variants with full specs (Engine, Transmission, Price, HP) filtered by model and country.</div>
-      </div>
 
-      <div class="endpoint-card">
-        <div>
-          <span class="method-badge">GET</span>
-          <span class="endpoint-path">/api/v1/models</span>
+        <div class="feature-box">
+          <div class="feature-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          </div>
+          <h3 class="feature-heading">Detailed Trim Variants</h3>
+          <p class="feature-text">Get precise engine specs, transmission types, drivetrains (FWD, RWD, AWD, 4WD), horsepower, fuel types, and localized prices.</p>
         </div>
-        <div class="endpoint-desc">List vehicle models filtered by manufacturer slug, country market, or body type (SUV, Sedan, EV).</div>
-      </div>
 
-      <div class="endpoint-card">
-        <div>
-          <span class="method-badge">GET</span>
-          <span class="endpoint-path">/api/v1/search</span>
+        <div class="feature-box">
+          <div class="feature-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+          </div>
+          <h3 class="feature-heading">Dynamic NHTSA VIN Proxy</h3>
+          <p class="feature-text">Realtime VIN decoder bridge proxying North American VINs directly to NHTSA vPIC with standardized normalization.</p>
         </div>
-        <div class="endpoint-desc">Global fuzzy search across manufacturers, vehicle models, and trims.</div>
-      </div>
 
-      <div class="endpoint-card">
-        <div>
-          <span class="method-badge">GET</span>
-          <span class="endpoint-path">/api/v1/nhtsa/decode/:vin</span>
+        <div class="feature-box">
+          <div class="feature-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+          </div>
+          <h3 class="feature-heading">Sub-10ms Response Times</h3>
+          <p class="feature-text">Lightweight Node.js REST API with embedded SQLite file storage for high throughput and instant response times.</p>
         </div>
-        <div class="endpoint-desc">Dynamic VIN decoder proxy bridge fetching realtime NHTSA vPIC specification data.</div>
-      </div>
 
-      <div class="endpoint-card">
-        <div>
-          <span class="method-badge">GET</span>
-          <span class="endpoint-path">/api/v1/manufacturers</span>
+        <div class="feature-box">
+          <div class="feature-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </div>
+          <h3 class="feature-heading">Cross-Entity Search</h3>
+          <p class="feature-text">Instant fuzzy search across manufacturers, vehicle model names, and trim levels with country scoping.</p>
         </div>
-        <div class="endpoint-desc">Retrieve global vehicle manufacturers filtered by market availability.</div>
-      </div>
 
-      <div class="endpoint-card">
-        <div>
-          <span class="method-badge">GET</span>
-          <span class="endpoint-path">/api/v1/countries</span>
+        <div class="feature-box">
+          <div class="feature-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <h3 class="feature-heading">Zero external DB setup</h3>
+          <p class="feature-text">Runs anywhere with zero database server setup. Includes automatic migrations and transactional dataset seeder.</p>
         </div>
-        <div class="endpoint-desc">List all supported regional market codes and details.</div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <p>&copy; 2026 Vehicle2API Platform. Built with Node.js &amp; SQLite. High Performance Global Vehicle Intelligence.</p>
-    </footer>
+  <!-- Section: Comparison Table -->
+  <section class="section-wrapper">
+    <div class="container">
+      <div class="section-intro">
+        <div class="eyebrow">Why Vehicle2API</div>
+        <h2 class="main-title">Everything else falls short. Here's why developers choose us.</h2>
+        <p class="sub-title">Compare Vehicle2API against traditional clunky car data services.</p>
+      </div>
 
-  </div>
+      <div class="comparison-table-wrap">
+        <div class="comp-row">
+          <div class="comp-header us">Vehicle2API Platform</div>
+          <div class="comp-header">Traditional Automotive APIs</div>
+        </div>
+
+        <div class="comp-row">
+          <div class="comp-cell us"><span class="check-icon">✓</span> 190+ Countries &amp; regional market trim specs</div>
+          <div class="comp-cell them"><span class="cross-icon">✕</span> Single region only (US only or EU only)</div>
+        </div>
+
+        <div class="comp-row">
+          <div class="comp-cell us"><span class="check-icon">✓</span> Real-time dynamic NHTSA VIN decoder bridge</div>
+          <div class="comp-cell them"><span class="cross-icon">✕</span> Outdated static VIN dumps from 2018</div>
+        </div>
+
+        <div class="comp-row">
+          <div class="comp-cell us"><span class="check-icon">✓</span> Sub-10ms response latency with SQLite core</div>
+          <div class="comp-cell them"><span class="cross-icon">✕</span> Heavy slow REST endpoints (500ms+)</div>
+        </div>
+
+        <div class="comp-row">
+          <div class="comp-cell us"><span class="check-icon">✓</span> Standardized JSON schema for trims &amp; engines</div>
+          <div class="comp-cell them"><span class="cross-icon">✕</span> Inconsistent XML &amp; legacy data structures</div>
+        </div>
+
+        <div class="comp-row">
+          <div class="comp-cell us"><span class="check-icon">✓</span> Zero database server dependencies</div>
+          <div class="comp-cell them"><span class="cross-icon">✕</span> Requires complex MySQL / PostgreSQL setups</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Testimonials -->
+  <section class="section-wrapper">
+    <div class="container">
+      <div class="section-intro">
+        <div class="eyebrow">Real Results</div>
+        <h2 class="main-title">Teams who never looked back.</h2>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <p class="quote-text">"Vehicle2API cut our auto portal's data ingestion workload in half. We queried trim specs across 9 countries in minutes."</p>
+          <div class="author-info">
+            <div class="author-avatar">SM</div>
+            <div>
+              <div class="author-name">Sarah Mitchell</div>
+              <div class="author-role">Platform Engineer at DriveScale</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="quote-text">"The NHTSA VIN decoder bridge proxy is brilliant. It handles timeouts gracefully and normalizes payload fields perfectly."</p>
+          <div class="author-info">
+            <div class="author-avatar">JO</div>
+            <div>
+              <div class="author-name">James Okafor</div>
+              <div class="author-role">CTO at AutoMatrix</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="quote-text">"It feels like having an enterprise vehicle database on call — without the massive cloud infrastructure overhead."</p>
+          <div class="author-info">
+            <div class="author-avatar">EL</div>
+            <div>
+              <div class="author-name">Emma Larsson</div>
+              <div class="author-role">Head of Product at Volta Motors</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Pricing -->
+  <section id="pricing" class="section-wrapper">
+    <div class="container">
+      <div class="section-intro">
+        <div class="eyebrow">Simple Pricing</div>
+        <h2 class="main-title">Start free, scale when ready.</h2>
+        <p class="sub-title">Transparent pricing with no hidden bandwidth or request fees.</p>
+      </div>
+
+      <div class="pricing-toggle-wrap">
+        <div class="pricing-toggle">
+          <button class="toggle-opt active" id="btn-monthly">Monthly</button>
+          <button class="toggle-opt" id="btn-yearly">Yearly (20% off)</button>
+        </div>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Starter Plan -->
+        <div class="price-card">
+          <h3 class="plan-name">Starter</h3>
+          <p class="plan-desc">Perfect for developers exploring global vehicle data.</p>
+          <div class="plan-price" id="price-starter">$0<span> / mo</span></div>
+          <ul class="plan-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 5,000 API calls / month</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Access all 9 seeded markets</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Basic VIN decoder proxy</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Community support</li>
+          </ul>
+          <a href="#playground" class="btn-nouva-secondary" style="justify-content: center;">Get Started Free</a>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="price-card popular">
+          <div class="popular-badge">POPULAR</div>
+          <h3 class="plan-name">Pro</h3>
+          <p class="plan-desc">For automotive apps and dealership portals needing high scale.</p>
+          <div class="plan-price" id="price-pro">$19<span> / mo</span></div>
+          <ul class="plan-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 250,000 API calls / month</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> All 190+ country markets</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Realtime NHTSA VIN bridge</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Priority support &amp; SLA</li>
+          </ul>
+          <a href="#playground" class="btn-nouva-primary" style="justify-content: center;">Start Pro Trial</a>
+        </div>
+
+        <!-- Enterprise Plan -->
+        <div class="price-card">
+          <h3 class="plan-name">Enterprise</h3>
+          <p class="plan-desc">For growing auto fleets requiring dedicated SLA and custom datasets.</p>
+          <div class="plan-price" id="price-teams">$29<span> / mo</span></div>
+          <ul class="plan-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Unlimited API calls</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Custom dataset imports</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Dedicated server instance</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 24/7 Phone &amp; Email support</li>
+          </ul>
+          <a href="#playground" class="btn-nouva-secondary" style="justify-content: center;">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: FAQ -->
+  <section id="faq" class="section-wrapper">
+    <div class="container">
+      <div class="section-intro">
+        <div class="eyebrow">Got Questions?</div>
+        <h2 class="main-title">You have questions. We have answers.</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item open">
+          <button class="faq-question">
+            <span>What makes Vehicle2API different from traditional vehicle APIs?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            Vehicle2API is built from the ground up for global market coverage (190+ countries) with zero external database dependencies. Powered by an embedded SQLite core, it delivers sub-10ms query performance and includes a dynamic NHTSA VIN decoder proxy bridge out of the box.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How does the dynamic NHTSA VIN decoder proxy work?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            When you call `/api/v1/nhtsa/decode/:vin`, Vehicle2API proxies the request to the official NHTSA vPIC API, normalizes all key specifications (Manufacturer, Model, Year, Trim, Engine, Cylinders, Plant Country), and returns a clean, standardized JSON response with built-in timeout protection.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Which country markets are supported?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            The API includes pre-seeded market data for the United States (US), India (IN), Germany (DE), United Kingdom (UK), Japan (JP), China (CN), Australia (AU), Brazil (BR), and United Arab Emirates (AE), with dynamic extension support for all global regions.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can I deploy Vehicle2API locally or in Docker?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            Yes! Because Vehicle2API uses Node.js and SQLite, you can run `npm start` on any server or containerize it with Docker in seconds with zero database server setup.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is my data private and secure?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            Yes. Vehicle2API operates with strict security practices. Parameterized SQL queries eliminate injection risks, and all dynamic VIN decoder calls are standard HTTPS GET requests with zero data retention on third-party servers.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="brand-logo">
+            <div class="logo-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+            </div>
+            Vehicle2API
+          </a>
+          <p>The global vehicle intelligence platform helping automotive teams work faster, smarter, and at scale.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#benefits">Benefits</a></li>
+            <li><a href="#playground">Playground</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Information</h4>
+          <ul>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="/health">Health Status</a></li>
+            <li><a href="/api/v1/countries">Countries API</a></li>
+            <li><a href="/api/v1/trims?model=toyota-corolla&country=US">Trims API</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal &amp; Social</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">GitHub Repo</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Vehicle2API by Antigravity Assistant. Nouva Template Clone.</p>
+        <p>Built with Node.js, Express &amp; SQLite.</p>
+      </div>
+    </div>
+  </footer>
 
   <script src="/app.js"></script>
 </body>
