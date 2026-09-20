@@ -43,7 +43,20 @@ export function initDb(dbPath = 'vehicle2api.db') {
             FOREIGN KEY(model_id) REFERENCES models(id),
             FOREIGN KEY(country_code) REFERENCES countries(code)
         );
+
+        CREATE INDEX IF NOT EXISTS idx_trims_lookup ON trims(model_id, country_code, year);
+        CREATE INDEX IF NOT EXISTS idx_models_mfr ON models(manufacturer_id, body_type);
+        CREATE INDEX IF NOT EXISTS idx_trims_country ON trims(country_code);
+
+        CREATE VIRTUAL TABLE IF NOT EXISTS vehicle_fts USING fts5(
+            trim_id UNINDEXED,
+            manufacturer,
+            model,
+            trim_name,
+            country
+        );
     `);
 
     return db;
 }
+

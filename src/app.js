@@ -83,8 +83,10 @@ export function createApp(db = initDb(), options = {}) {
             const manufacturerId = req.query.manufacturer || req.query.manufacturer_id || req.query.manufacturerId;
             const countryCode = req.query.country || req.query.country_code || req.query.countryCode;
             const bodyType = req.query.body_type || req.query.bodyType;
+            const limit = req.query.limit;
+            const page = req.query.page;
 
-            const models = getModels(db, { manufacturerId, countryCode, bodyType });
+            const models = getModels(db, { manufacturerId, countryCode, bodyType, limit, page });
             res.status(200).json({ models });
         } catch (err) {
             res.status(500).json({ error: err.message });
@@ -98,8 +100,10 @@ export function createApp(db = initDb(), options = {}) {
             const countryCode = req.query.country || req.query.country_code || req.query.countryCode;
             const year = req.query.year;
             const onSale = req.query.on_sale !== undefined ? req.query.on_sale : req.query.onSale;
+            const limit = req.query.limit;
+            const page = req.query.page;
 
-            const trims = getTrims(db, { modelId, countryCode, year, onSale });
+            const trims = getTrims(db, { modelId, countryCode, year, onSale, limit, page });
             res.status(200).json({ trims });
         } catch (err) {
             res.status(500).json({ error: err.message });
@@ -111,8 +115,10 @@ export function createApp(db = initDb(), options = {}) {
         try {
             const q = req.query.q || req.query.query || '';
             const country = req.query.country || req.query.country_code || req.query.countryCode;
+            const limit = req.query.limit;
+            const page = req.query.page;
 
-            const results = searchVehicles(db, q, country);
+            const results = searchVehicles(db, q, country, { limit, page });
             res.status(200).json({
                 query: q,
                 results
@@ -121,6 +127,7 @@ export function createApp(db = initDb(), options = {}) {
             res.status(500).json({ error: err.message });
         }
     });
+
 
     // Dynamic NHTSA VIN decoder proxy
     app.get('/api/v1/nhtsa/decode/:vin', async (req, res) => {
