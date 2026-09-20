@@ -1749,8 +1749,275 @@ export const trims = [
         power_hp: 181,
         price_local: '¥95,800',
         on_sale: 1
+    },
+    {
+        id: 'geely-coolray-ae-gf-sport',
+        model_id: 'geely-coolray',
+        country_code: 'AE',
+        trim_name: 'GF Sport 1.5T',
+        year: 2024,
+        engine: '1.5L Turbocharged 4-Cylinder',
+        transmission: '7-Speed DCT',
+        drivetrain: 'FWD',
+        fuel_type: 'Gasoline',
+        power_hp: 174,
+        price_local: 'AED 67,500',
+        on_sale: 1
+    },
+
+    // Additional Multi-Market Trims for Complete Coverage
+    {
+        id: 'toyota-camry-us-se',
+        model_id: 'toyota-camry',
+        country_code: 'US',
+        trim_name: 'SE AWD Hybrid',
+        year: 2025,
+        engine: '2.5L 4-Cylinder Hybrid',
+        transmission: 'eCVT',
+        drivetrain: 'AWD',
+        fuel_type: 'Hybrid',
+        power_hp: 232,
+        price_local: '$32,225',
+        on_sale: 1
+    },
+    {
+        id: 'toyota-camry-jp-g',
+        model_id: 'toyota-camry',
+        country_code: 'JP',
+        trim_name: 'G Leather Package',
+        year: 2024,
+        engine: '2.5L THS II Hybrid',
+        transmission: 'eCVT',
+        drivetrain: 'E-Four',
+        fuel_type: 'Hybrid',
+        power_hp: 218,
+        price_local: '¥4,364,000',
+        on_sale: 1
+    },
+    {
+        id: 'toyota-camry-ae-limited',
+        model_id: 'toyota-camry',
+        country_code: 'AE',
+        trim_name: 'LUMIERE 2.5L Hybrid',
+        year: 2024,
+        engine: '2.5L 4-Cylinder Hybrid',
+        transmission: 'eCVT',
+        drivetrain: 'FWD',
+        fuel_type: 'Hybrid',
+        power_hp: 215,
+        price_local: 'AED 139,900',
+        on_sale: 1
+    },
+
+    // Tesla Model S & X (EU / Global)
+    {
+        id: 'tesla-models-de-lr',
+        model_id: 'tesla-model-s',
+        country_code: 'DE',
+        trim_name: 'Maximale Reichweite Allradantrieb',
+        year: 2024,
+        engine: 'Dual Motor Electric',
+        transmission: 'Single Speed Fixed Gear',
+        drivetrain: 'AWD',
+        fuel_type: 'Electric',
+        power_hp: 670,
+        price_local: '€94,990',
+        on_sale: 1
+    },
+    {
+        id: 'tesla-modelx-de-plaid',
+        model_id: 'tesla-model-x',
+        country_code: 'DE',
+        trim_name: 'Plaid Tri-Motor',
+        year: 2024,
+        engine: 'Tri-Motor Electric',
+        transmission: 'Single Speed Fixed Gear',
+        drivetrain: 'AWD',
+        fuel_type: 'Electric',
+        power_hp: 1020,
+        price_local: '€114,990',
+        on_sale: 1
+    },
+
+    // Chevrolet Global Trims
+    {
+        id: 'chevrolet-corvette-ae-z06',
+        model_id: 'chevrolet-corvette',
+        country_code: 'AE',
+        trim_name: 'Z06 3LZ Coupe',
+        year: 2024,
+        engine: '5.5L LT6 Flat-Plane Crank V8',
+        transmission: '8-Speed Dual-Clutch',
+        drivetrain: 'RWD',
+        fuel_type: 'Gasoline',
+        power_hp: 670,
+        price_local: 'AED 595,000',
+        on_sale: 1
+    },
+    {
+        id: 'chevrolet-silverado-br-highcountry',
+        model_id: 'chevrolet-silverado',
+        country_code: 'BR',
+        trim_name: 'High Country 6.2 V8 4x4',
+        year: 2024,
+        engine: '6.2L EcoTec3 V8',
+        transmission: '10-Speed Automatic',
+        drivetrain: '4WD',
+        fuel_type: 'Gasoline',
+        power_hp: 426,
+        price_local: 'R$ 529,990',
+        on_sale: 1
+    },
+
+    // Mercedes-Benz Global Trims
+    {
+        id: 'mercedes-cclass-us-c300',
+        model_id: 'mercedes-benz-c-class',
+        country_code: 'US',
+        trim_name: 'C 300 4MATIC Sedan',
+        year: 2024,
+        engine: '2.0L Turbo I4 Mild Hybrid',
+        transmission: '9G-TRONIC Automatic',
+        drivetrain: 'AWD',
+        fuel_type: 'Mild Hybrid',
+        power_hp: 255,
+        price_local: '$48,990',
+        on_sale: 1
+    },
+    {
+        id: 'mercedes-cclass-uk-amg',
+        model_id: 'mercedes-benz-c-class',
+        country_code: 'UK',
+        trim_name: 'AMG Line Premium 2.0 d',
+        year: 2024,
+        engine: '2.0L Turbo Diesel Mild Hybrid',
+        transmission: '9G-TRONIC Automatic',
+        drivetrain: 'RWD',
+        fuel_type: 'Diesel',
+        power_hp: 200,
+        price_local: '£46,700',
+        on_sale: 1
+    },
+    {
+        id: 'mercedes-eqe-us-3504m',
+        model_id: 'mercedes-benz-eqe',
+        country_code: 'US',
+        trim_name: 'EQE 350 4MATIC SUV',
+        year: 2024,
+        engine: 'Dual Motor Electric',
+        transmission: 'Single Speed Automatic',
+        drivetrain: 'AWD',
+        fuel_type: 'Electric',
+        power_hp: 288,
+        price_local: '$77,900',
+        on_sale: 1
+    },
+
+    // Audi Global Trims
+    {
+        id: 'audi-a4-us-45tfsi',
+        model_id: 'audi-a4',
+        country_code: 'US',
+        trim_name: '45 TFSI quattro Premium',
+        year: 2024,
+        engine: '2.0L Turbocharged 4-Cylinder',
+        transmission: '7-Speed S tronic',
+        drivetrain: 'AWD',
+        fuel_type: 'Gasoline',
+        power_hp: 261,
+        price_local: '$44,100',
+        on_sale: 1
+    },
+    {
+        id: 'audi-etrongt-de-quattro',
+        model_id: 'audi-e-tron-gt',
+        country_code: 'DE',
+        trim_name: 'e-tron GT quattro',
+        year: 2024,
+        engine: 'Dual Motor Electric',
+        transmission: '2-Speed Automatic',
+        drivetrain: 'AWD',
+        fuel_type: 'Electric',
+        power_hp: 530,
+        price_local: '€106,000',
+        on_sale: 1
+    },
+
+    // Honda Global Trims
+    {
+        id: 'honda-civic-jp-type-r',
+        model_id: 'honda-civic',
+        country_code: 'JP',
+        trim_name: 'TYPE R 2.0L VTEC Turbo',
+        year: 2024,
+        engine: '2.0L VTEC Turbo K20C1',
+        transmission: '6-Speed Manual',
+        drivetrain: 'FWD',
+        fuel_type: 'Gasoline',
+        power_hp: 330,
+        price_local: '¥4,997,300',
+        on_sale: 1
+    },
+    {
+        id: 'honda-civic-in-zx',
+        model_id: 'honda-civic',
+        country_code: 'IN',
+        trim_name: 'ZX i-DTEC Diesel',
+        year: 2024,
+        engine: '1.6L i-DTEC Turbo Diesel',
+        transmission: '6-Speed Manual',
+        drivetrain: 'FWD',
+        fuel_type: 'Diesel',
+        power_hp: 120,
+        price_local: '₹22,35,000',
+        on_sale: 1
+    },
+    {
+        id: 'honda-crv-us-sporthyorid',
+        model_id: 'honda-cr-v',
+        country_code: 'US',
+        trim_name: 'Sport Touring Hybrid AWD',
+        year: 2024,
+        engine: '2.0L 4-Cylinder Hybrid',
+        transmission: 'eCVT',
+        drivetrain: 'AWD',
+        fuel_type: 'Hybrid',
+        power_hp: 204,
+        price_local: '$40,200',
+        on_sale: 1
+    },
+
+    // Nissan Global Trims
+    {
+        id: 'nissan-gtr-us-premium',
+        model_id: 'nissan-gt-r',
+        country_code: 'US',
+        trim_name: 'Premium 3.8L V6',
+        year: 2024,
+        engine: '3.8L Twin-Turbo V6 VR38DETT',
+        transmission: '6-Speed Dual Clutch',
+        drivetrain: 'AWD',
+        fuel_type: 'Gasoline',
+        power_hp: 565,
+        price_local: '$121,090',
+        on_sale: 1
+    },
+    {
+        id: 'nissan-ariya-de-evolve',
+        model_id: 'nissan-ariya',
+        country_code: 'DE',
+        trim_name: 'Evolve+ e-4ORCE 87kWh',
+        year: 2024,
+        engine: 'Dual Motor Electric',
+        transmission: 'Single Speed Automatic',
+        drivetrain: 'AWD',
+        fuel_type: 'Electric',
+        power_hp: 388,
+        price_local: '€65,490',
+        on_sale: 1
     }
 ];
+
 
 
 export default {
