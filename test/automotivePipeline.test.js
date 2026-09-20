@@ -127,3 +127,12 @@ test('Data Quality metrics and conflict resolution endpoints work', async () => 
         assert.strictEqual(resolveBody.status, 'RESOLVED');
     }
 });
+
+test('GET /api/v1/discovery/carwale executes live discovery endpoint', async () => {
+    const res = await fetch(`${baseUrl}/api/v1/discovery/carwale?manufacturer=maruti-suzuki&model=swift`);
+    assert.strictEqual(res.status, 200);
+    const body = await res.json();
+    assert.strictEqual(body.manufacturer, 'maruti-suzuki');
+    assert.strictEqual(body.model, 'swift');
+    assert.ok(Array.isArray(body.variants));
+});

@@ -268,6 +268,19 @@ export function createApp(db = initDb(), options = {}) {
         }
     });
 
+    // Live CarWale Variant Discovery endpoint
+    app.get('/api/v1/discovery/carwale', async (req, res) => {
+        try {
+            const manufacturer = req.query.manufacturer || 'maruti-suzuki';
+            const model = req.query.model || 'swift';
+            const { discoverCarWaleVariants } = await import('./pipeline/carwaleDiscovery.js');
+            const discoveryResult = await discoverCarWaleVariants(manufacturer, model);
+            res.status(200).json(discoveryResult);
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    });
+
     // Dynamic NHTSA VIN decoder proxy
     app.get('/api/v1/nhtsa/decode/:vin', async (req, res) => {
         try {
