@@ -1,4 +1,7 @@
 import { countries, manufacturers, models, trims } from './seedData.js';
+import { runIngestionPipeline } from './pipeline/ingestionEngine.js';
+
+// ponytail: Modular database repository -> Upgrade to ORM (Prisma / Drizzle) if schema migrations > 50 files.
 
 export function seedDatabase(db) {
     const insertCountry = db.prepare(`
@@ -24,7 +27,6 @@ export function seedDatabase(db) {
             @power_hp, @price_local, @on_sale
         )
     `);
-
     const insertFts = db.prepare(`
         INSERT OR IGNORE INTO vehicle_fts (trim_id, manufacturer, model, trim_name, country)
         VALUES (@trim_id, @manufacturer, @model, @trim_name, @country)
@@ -58,8 +60,10 @@ export function seedDatabase(db) {
     });
 
     seedTransaction();
-}
 
+    // Ingest India hierarchical pipeline data
+    runIngestionPipeline(db);
+}
 
 export function getCountries(db) {
     return db.prepare('SELECT code, name, region FROM countries ORDER BY name ASC').all();
@@ -69,7 +73,7 @@ export function getManufacturers(db, countryCode) {
     if (countryCode && typeof countryCode === 'string' && countryCode.trim() !== '') {
         const normalized = countryCode.trim().toUpperCase();
         return db.prepare(`
-            SELECT DISTINCT m.id, m.name, m.country_origin
+            SELECT DISTINCT m.id, m.name, m.country_origin, m.official_website, m.active_in_india
             FROM manufacturers m
             WHERE UPPER(m.country_origin) = ?
                OR EXISTS (
@@ -77,10 +81,15 @@ export function getManufacturers(db, countryCode) {
                    JOIN trims t ON t.model_id = mo.id
                    WHERE mo.manufacturer_id = m.id AND UPPER(t.country_code) = ?
                )
+               OR EXISTS (
+                   SELECT 1 FROM models mo
+                   JOIN variants v ON v.model_id = mo.id
+                   WHERE mo.manufacturer_id = m.id AND UPPER(v.country_code) = ?
+               )
             ORDER BY m.name ASC
-        `).all(normalized, normalized);
+        `).all(normalized, normalized, normalized);
     }
-    return db.prepare('SELECT id, name, country_origin FROM manufacturers ORDER BY name ASC').all();
+    return db.prepare('SELECT id, name, country_origin, official_website, active_in_india FROM manufacturers ORDER BY name ASC').all();
 }
 
 export function getModels(db, { manufacturerId, countryCode, bodyType, limit = 100, page = 1 } = {}) {
@@ -97,16 +106,19 @@ export function getModels(db, { manufacturerId, countryCode, bodyType, limit = 1
     }
     if (countryCode && typeof countryCode === 'string' && countryCode.trim() !== '') {
         conditions.push(`
-            EXISTS (
+            (EXISTS (
                 SELECT 1 FROM trims t
                 WHERE t.model_id = m.id AND UPPER(t.country_code) = UPPER(?)
-            )
+            ) OR EXISTS (
+                SELECT 1 FROM variants v
+                WHERE v.model_id = m.id AND UPPER(v.country_code) = UPPER(?)
+            ))
         `);
-        params.push(countryCode.trim());
+        params.push(countryCode.trim(), countryCode.trim());
     }
 
     let query = `
-        SELECT DISTINCT m.id, m.manufacturer_id, m.name, m.body_type
+        SELECT DISTINCT m.id, m.manufacturer_id, m.name, m.body_type, m.segment, m.introduced_year, m.status
         FROM models m
     `;
     if (conditions.length > 0) {
@@ -122,6 +134,14 @@ export function getModels(db, { manufacturerId, countryCode, bodyType, limit = 1
     params.push(parsedLimit, offset);
 
     return db.prepare(query).all(...params);
+}
+
+export function getGenerations(db, modelId) {
+    return db.prepare('SELECT * FROM generations WHERE LOWER(model_id) = LOWER(?) ORDER BY start_year DESC').all(modelId);
+}
+
+export function getFacelifts(db, generationId) {
+    return db.prepare('SELECT * FROM facelifts WHERE generation_id = ? ORDER BY release_year DESC').all(generationId);
 }
 
 export function getTrims(db, { modelId, countryCode, year, onSale, limit = 100, page = 1 } = {}) {
@@ -165,6 +185,66 @@ export function getTrims(db, { modelId, countryCode, year, onSale, limit = 100, 
     return db.prepare(query).all(...params);
 }
 
+export function getVehicleById(db, id) {
+    const variant = db.prepare(`
+        SELECT v.*, m.name AS model_name, mfr.name AS manufacturer_name
+        FROM variants v
+        JOIN models m ON v.model_id = m.id
+        JOIN manufacturers mfr ON m.manufacturer_id = mfr.id
+        WHERE v.id = ?
+    `).get(id);
+
+    if (!variant) return null;
+
+    const specs = db.prepare('SELECT category, key, value, numeric_value, unit, confidence_state FROM specifications WHERE variant_id = ?').all(id);
+    const features = db.prepare('SELECT category, feature_key, feature_name, is_standard, confidence_state FROM variant_features WHERE variant_id = ?').all(id);
+    const prices = db.prepare('SELECT ex_showroom_price, on_road_price, market, city, currency, valid_from, valid_until, source_name FROM prices WHERE variant_id = ?').all(id);
+    const observations = db.prepare(`
+        SELECT obs.field_name, obs.raw_value, obs.normalized_value, obs.confidence, s.name AS source_name, s.source_type
+        FROM source_observations obs
+        JOIN sources s ON obs.source_id = s.id
+        WHERE obs.variant_id = ?
+    `).all(id);
+
+    const powertrain = db.prepare(`
+        SELECT pt.fuel_type, pt.secondary_fuel, e.displacement_cc, e.max_power_ps, e.max_torque_nm, t.transmission_type, t.gear_count, t.drive_type
+        FROM powertrains pt
+        LEFT JOIN engines e ON pt.engine_id = e.id
+        LEFT JOIN transmissions t ON pt.transmission_id = t.id
+        WHERE pt.id = ?
+    `).get(variant.powertrain_id) || {};
+
+    const formattedSpecs = {};
+    for (const spec of specs) {
+        formattedSpecs[spec.key] = {
+            value: spec.numeric_value !== null ? spec.numeric_value : spec.value,
+            unit: spec.unit,
+            confidence: spec.confidence_state
+        };
+    }
+
+    return {
+        vehicle: {
+            id: variant.id,
+            manufacturer: variant.manufacturer_name,
+            model: variant.model_name,
+            variant: variant.canonical_variant_name,
+            raw_variant_name: variant.raw_variant_name,
+            model_year: variant.year,
+            market: variant.country_code,
+            status: variant.status
+        },
+        powertrain,
+        specifications: formattedSpecs,
+        features,
+        prices,
+        source_provenance: observations,
+        data_quality: {
+            completeness: variant.completeness_score,
+            confidence: variant.confidence_score
+        }
+    };
+}
 
 export function searchVehicles(db, query, countryCode, { limit = 50, page = 1 } = {}) {
     if (!query || typeof query !== 'string' || query.trim() === '') {
@@ -180,108 +260,80 @@ export function searchVehicles(db, query, countryCode, { limit = 50, page = 1 } 
     const parsedPage = Math.max(1, Number(page) || 1);
     const offset = (parsedPage - 1) * parsedLimit;
 
-    // FTS5 query attempt
-    try {
-        let ftsQuery = `
-            SELECT DISTINCT t.*
-            FROM vehicle_fts f
-            JOIN trims t ON f.trim_id = t.id
-            WHERE vehicle_fts MATCH ?
-        `;
-        const ftsParams = [trimmedQuery + '*'];
-        if (hasCountry) {
-            ftsQuery += ' AND UPPER(t.country_code) = ?';
-            ftsParams.push(normalizedCountry);
-        }
-        ftsQuery += ' ORDER BY t.year DESC LIMIT ? OFFSET ?';
-        ftsParams.push(parsedLimit, offset);
-
-        const ftsTrims = db.prepare(ftsQuery).all(...ftsParams);
-        if (ftsTrims.length > 0) {
-            const modelIds = [...new Set(ftsTrims.map(t => t.model_id))];
-            const modelsResult = db.prepare(`SELECT * FROM models WHERE id IN (${modelIds.map(() => '?').join(',')})`).all(...modelIds);
-            const mfrIds = [...new Set(modelsResult.map(m => m.manufacturer_id))];
-            const mfrsResult = db.prepare(`SELECT * FROM manufacturers WHERE id IN (${mfrIds.map(() => '?').join(',')})`).all(...mfrIds);
-
-            return {
-                manufacturers: mfrsResult,
-                models: modelsResult,
-                trims: ftsTrims
-            };
-        }
-    } catch (e) {
-        // Fallback to standard LIKE queries if FTS input contains unescaped symbols
-    }
-
-    let mfrQuery = `
-        SELECT DISTINCT m.id, m.name, m.country_origin
-        FROM manufacturers m
-        WHERE (m.name LIKE ? OR m.id LIKE ?)
-    `;
-    const mfrParams = [pattern, pattern];
-    if (hasCountry) {
-        mfrQuery += `
-            AND (
-                UPPER(m.country_origin) = ?
-                OR EXISTS (
-                    SELECT 1 FROM models mo
-                    JOIN trims t ON t.model_id = mo.id
-                    WHERE mo.manufacturer_id = m.id AND UPPER(t.country_code) = ?
-                )
-            )
-        `;
-        mfrParams.push(normalizedCountry, normalizedCountry);
-    }
-    mfrQuery += ' ORDER BY m.name ASC LIMIT ? OFFSET ?';
-    mfrParams.push(parsedLimit, offset);
-    const matchingMfrs = db.prepare(mfrQuery).all(...mfrParams);
-
-    let modelQuery = `
-        SELECT DISTINCT mo.id, mo.manufacturer_id, mo.name, mo.body_type
-        FROM models mo
-        JOIN manufacturers m ON mo.manufacturer_id = m.id
-        WHERE (mo.name LIKE ? OR mo.id LIKE ? OR mo.body_type LIKE ? OR m.name LIKE ?)
-    `;
-    const modelParams = [pattern, pattern, pattern, pattern];
-    if (hasCountry) {
-        modelQuery += `
-            AND EXISTS (
-                SELECT 1 FROM trims t
-                WHERE t.model_id = mo.id AND UPPER(t.country_code) = ?
-            )
-        `;
-        modelParams.push(normalizedCountry);
-    }
-    modelQuery += ' ORDER BY mo.name ASC LIMIT ? OFFSET ?';
-    modelParams.push(parsedLimit, offset);
-    const matchingModels = db.prepare(modelQuery).all(...modelParams);
-
-    let trimQuery = `
-        SELECT DISTINCT t.*
-        FROM trims t
-        JOIN models mo ON t.model_id = mo.id
-        JOIN manufacturers m ON mo.manufacturer_id = m.id
-        WHERE (
-            t.trim_name LIKE ?
-            OR t.engine LIKE ?
-            OR t.fuel_type LIKE ?
-            OR mo.name LIKE ?
-            OR m.name LIKE ?
-        )
-    `;
-    const trimParams = [pattern, pattern, pattern, pattern, pattern];
-    if (hasCountry) {
-        trimQuery += ' AND UPPER(t.country_code) = ?';
-        trimParams.push(normalizedCountry);
-    }
-    trimQuery += ' ORDER BY t.year DESC, t.trim_name ASC, t.id ASC LIMIT ? OFFSET ?';
-    trimParams.push(parsedLimit, offset);
-    const matchingTrims = db.prepare(trimQuery).all(...trimParams);
+    const matchingTrims = getTrims(db, { modelId: null, countryCode, year: null, limit: parsedLimit, page: parsedPage });
+    const matchingVariants = db.prepare(`
+        SELECT v.id, v.canonical_variant_name, v.year, v.country_code, m.name AS model_name, mfr.name AS manufacturer_name
+        FROM variants v
+        JOIN models m ON v.model_id = m.id
+        JOIN manufacturers mfr ON m.manufacturer_id = mfr.id
+        WHERE (v.raw_variant_name LIKE ? OR v.canonical_variant_name LIKE ? OR m.name LIKE ? OR mfr.name LIKE ?)
+        ${hasCountry ? 'AND UPPER(v.country_code) = ?' : ''}
+        LIMIT ? OFFSET ?
+    `).all(...(hasCountry ? [pattern, pattern, pattern, pattern, normalizedCountry, parsedLimit, offset] : [pattern, pattern, pattern, pattern, parsedLimit, offset]));
 
     return {
-        manufacturers: matchingMfrs,
-        models: matchingModels,
-        trims: matchingTrims
+        manufacturers: getManufacturers(db, countryCode),
+        models: getModels(db, { countryCode }),
+        trims: matchingTrims,
+        variants: matchingVariants
     };
 }
 
+export function compareVehicles(db, ids) {
+    if (!Array.isArray(ids) || ids.length === 0) return [];
+    return ids.map(id => getVehicleById(db, id)).filter(Boolean);
+}
+
+export function getDataQualityMetrics(db) {
+    const totalModelsRow = db.prepare('SELECT COUNT(*) AS count FROM models').get();
+    const totalVariantsRow = db.prepare('SELECT COUNT(*) AS count FROM variants').get();
+    const totalConflictsRow = db.prepare("SELECT COUNT(*) AS count FROM conflicts WHERE status = 'UNRESOLVED'").get();
+
+    const totalModels = totalModelsRow ? totalModelsRow.count : 0;
+    const totalVariants = totalVariantsRow ? totalVariantsRow.count : 0;
+    const totalConflicts = totalConflictsRow ? totalConflictsRow.count : 0;
+
+    const avgCompletenessRow = db.prepare('SELECT AVG(completeness_score) AS avg FROM variants').get();
+    const avgConfidenceRow = db.prepare('SELECT AVG(confidence_score) AS avg FROM variants').get();
+
+    const avgCompleteness = avgCompletenessRow && avgCompletenessRow.avg !== null ? avgCompletenessRow.avg : 0;
+    const avgConfidence = avgConfidenceRow && avgConfidenceRow.avg !== null ? avgConfidenceRow.avg : 0;
+
+    return {
+        models_scanned: totalModels,
+        variants_total: totalVariants,
+        unresolved_conflicts: totalConflicts,
+        average_completeness_pct: Math.round(avgCompleteness),
+        average_confidence_score: parseFloat(Number(avgConfidence).toFixed(2))
+    };
+}
+
+export function getDataQualityConflicts(db) {
+    return db.prepare(`
+        SELECT c.*, v.raw_variant_name, m.name AS model_name
+        FROM conflicts c
+        JOIN variants v ON c.variant_id = v.id
+        JOIN models m ON v.model_id = m.id
+        ORDER BY c.id DESC
+    `).all();
+}
+
+export function getDataQualityMissing(db) {
+    return db.prepare(`
+        SELECT v.id, v.raw_variant_name, m.name AS model_name, v.completeness_score
+        FROM variants v
+        JOIN models m ON v.model_id = m.id
+        WHERE v.completeness_score < 90
+        ORDER BY v.completeness_score ASC
+    `).all();
+}
+
+export function resolveConflict(db, conflictId, preferredValue, reason, resolvedBy = 'ADMIN') {
+    db.prepare(`
+        UPDATE conflicts
+        SET preferred_value = ?, resolution_reason = ?, status = 'RESOLVED_MANUAL', resolved_at = ?, resolved_by = ?
+        WHERE id = ?
+    `).run(preferredValue, reason, new Date().toISOString(), resolvedBy, conflictId);
+
+    return db.prepare('SELECT * FROM conflicts WHERE id = ?').get(conflictId);
+}

@@ -7,7 +7,8 @@ export const countries = [
     { code: 'CN', name: 'China', region: 'Asia' },
     { code: 'AU', name: 'Australia', region: 'Oceania' },
     { code: 'BR', name: 'Brazil', region: 'South America' },
-    { code: 'AE', name: 'United Arab Emirates', region: 'Middle East' }
+    { code: 'AE', name: 'United Arab Emirates', region: 'Middle East' },
+    { code: 'KR', name: 'South Korea', region: 'Asia' }
 ];
 
 export const manufacturers = [
