@@ -23,12 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputSearch = document.getElementById('input-search');
     const inputVin = document.getElementById('input-vin');
 
-    // Pricing elements
-    const btnMonthly = document.getElementById('btn-monthly');
-    const btnYearly = document.getElementById('btn-yearly');
-    const pricePro = document.getElementById('price-pro');
-    const priceTeams = document.getElementById('price-teams');
-
     // Tab switching
     endpointTabs.forEach(tab => {
         tab.addEventListener('click', () => {
@@ -57,23 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         btnCopy.textContent = 'Copied!';
         setTimeout(() => { btnCopy.textContent = orig; }, 1500);
     });
-
-    // Pricing toggle
-    if (btnMonthly && btnYearly) {
-        btnMonthly.addEventListener('click', () => {
-            btnMonthly.classList.add('active');
-            btnYearly.classList.remove('active');
-            if (pricePro) pricePro.innerHTML = '$19<span> / mo</span>';
-            if (priceTeams) priceTeams.innerHTML = '$29<span> / mo</span>';
-        });
-
-        btnYearly.addEventListener('click', () => {
-            btnYearly.classList.add('active');
-            btnMonthly.classList.remove('active');
-            if (pricePro) pricePro.innerHTML = '$15<span> / mo</span>';
-            if (priceTeams) priceTeams.innerHTML = '$23<span> / mo</span>';
-        });
-    }
 
     // FAQ Accordion
     const faqItems = document.querySelectorAll('.faq-item');
